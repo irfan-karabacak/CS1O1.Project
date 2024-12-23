@@ -7,9 +7,10 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) throws IOException {
 
+
         WordList wordList = new WordList();
 
-        wordList.loadWords("src/words.txt");
+        wordList.loadWords("C:/Users/alemd/IdeaProjects/wordle solver/src/tr/edu/ozyegin/cs101/wordlesolver/words.txt");
 
         Random random = new Random();
 
@@ -17,10 +18,25 @@ public class Main {
 
         Scanner scanner = new Scanner(System.in);
 
+        int guessCount = 0;
+
         while (!finished) {
-            int index = random.nextInt(wordList.getWords().size());
+            int index;
+            if(guessCount > 0) {
+                index = wordList.generateNextGuessIndex();
+            }else{
+                index = 9737;
+            }
+
+            if(guessCount==6){
+                finished = true;
+                System.out.println("You lose the game, sorry i can't find the word.");
+                break;
+            }
+            guessCount++;
 
             String guess = wordList.getWords().get(index);
+
 
             System.out.println("My guess is: " + guess);
 
@@ -30,7 +46,10 @@ public class Main {
             boolean isValid;
 
             do {
+
                 feedback = scanner.nextLine();
+
+
 
                 isValid = isValidFeedback(feedback);
 
@@ -38,14 +57,25 @@ public class Main {
                     System.out.println("Invalid feedback. Try again.");
                 }
 
+
             } while(!isValid);
 
-            System.out.println("Feedback was: " + feedback);
+            if(feedback.equalsIgnoreCase("ggggg")){
+                finished = true;
+                System.out.println("You win the game, guess count is " + guessCount);
+                break;
+            }
 
             Feedback actualFeedback = new Feedback(feedback);
 
             wordList.reduce(new Word(guess),actualFeedback);
+            if(wordList.getWords().isEmpty()){
+                finished=true;
+                System.out.println("There is no word like this. Try again!");
+                break;
+            }
 
+            System.out.println("Feedback was: " + feedback);
         }
     }
 
@@ -63,10 +93,20 @@ public class Main {
                 default:
                     return false;
             }
-
         }
-
         return true;
 
+    }
+    public static boolean isGoodFeedback(String feedback) {
+        int count=0;
+        for(int i=0; i<feedback.length();i++){
+            switch (feedback.charAt(i)) {
+                case 'Y','y','G','g' -> count++;
+            }
+        }
+        if(count>2){
+            return true;
+        }
+        return false;
     }
 }

@@ -28,8 +28,10 @@ public class Word {
 
             for (int j = 0; j < actualLetters.length; j++) {
                 if (c == actualLetters[j]) {
-                    feedback[i] = 'Y';
-                    actualLetters[j] = ' ';
+                    if(feedback[i]!='G') {
+                        feedback[i] = 'Y';
+                        actualLetters[j] = ' ';
+                    }
                 }
             }
         }
@@ -39,8 +41,8 @@ public class Word {
     }
 
     public static void main(String[] args) {
-        Word actual = new Word("cubes");
-        Word guess = new Word("backs");
+        Word actual = new Word("sauna");
+        Word guess = new Word("sanes");
 
         Feedback feedback = guess.generateFeedbackWithActualWord(actual);
 

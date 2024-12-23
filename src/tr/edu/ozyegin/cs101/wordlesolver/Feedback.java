@@ -34,10 +34,7 @@ public class Feedback {
                 case 'g', 'G' -> this.feedback[i] = GREEN;
                 default -> throw new IllegalArgumentException("Feedback contains bad letters.");
             }
-
         }
-
-
     }
 
     @Override
@@ -54,4 +51,5 @@ public class Feedback {
     public String toString() {
         return Arrays.toString(this.feedback);
     }
+
 }
