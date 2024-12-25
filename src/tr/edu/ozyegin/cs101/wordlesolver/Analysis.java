@@ -6,7 +6,7 @@ import java.util.HashMap;
 public class Analysis {
     public static void main(String[] args) throws IOException {
         WordList wordList = new WordList();
-        wordList.loadWords("src/tr/edu/ozyegin/cs101/wordlesolver/words.txt");
+        wordList.loadWords("src/words.txt");
 
         int minOfMax = Integer.MAX_VALUE;
 

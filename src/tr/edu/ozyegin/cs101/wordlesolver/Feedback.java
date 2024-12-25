@@ -37,6 +37,15 @@ public class Feedback {
         }
     }
 
+    public boolean isAllGreen(){
+        for(int i = 0; i <this.feedback.length; i++){
+            if(this.feedback[i] != GREEN){
+                return false;
+            }
+        }
+        return true;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof Feedback) {
